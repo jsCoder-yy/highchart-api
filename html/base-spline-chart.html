@@ -7,20 +7,99 @@
     <meta name="description" content="曲线图">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript" src="https://github.com/jsCoder-yy/highchart-api/blob/master/js/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="https://github.com/jsCoder-yy/highchart-api/blob/master/js/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="https://github.com/jsCoder-yy/highchart-api/blob/master/js/highcharts/highcharts.js"></script>
 </head>
 <body>
+<div id="base-spline-chart"></div>
 <script type="text/javascript">
-  $.ajax({
-    url: location.origin+'/pvuv/h5/common/statisticsPvuv.htm',
-    type: 'get',
-    data: {
-      url: 'page-m-autherror',
-      func:''
+  var config = {
+    chart: {
+        renderTo:'base-spline-chart',
+        type: 'areaspline',
+        height:150,
+        marginLeft:30,
+        marginRight:0
     },
-    dataType: 'json',
-    success:function(){}
-  });
+    title: {
+      text: ''
+    },
+    legend: {
+      enabled:false
+    },
+    //colors:['#93efda'],
+    xAxis: {
+      tickInterval: 1,
+      tickLength: 0,//刻度线高度
+      //tickmarkPlacement:'on',
+      showEmpty: false,
+      categories:[7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2,
+            26.5, 23.3, 18.3, 13.9, 9.6]
+    },
+    yAxis: {
+      max:100/20,
+      endOnTick:false,//设置这个，y轴最大值才生效
+      title:'',
+      gridLineColor: '#e5e5e5', 
+    },
+    /*yAxis: {
+      max:data.maxValue+data.maxValue/20,
+      title:'',
+      endOnTick:false,//设置这个，y轴最大值才生效
+      labels:{
+        enabled:false
+      },
+      gridLineColor: '#fff', 
+      lineWidth: 1,
+      plotLines: [{
+          dashStyle:'Dot',
+          color: '#cccccc',
+          value: avgValue, 
+          width: 1,
+          zIndex:4,
+          label: {
+            text: avgText,
+            useHTML:false,
+            align: 'right',
+            y: 3,
+            x:0,
+            style:{
+              backgroundColor:"#ffffff",
+              color:"#aaaaaa"
+            }
+          }
+      }]
+    },*/
+    tooltip: {//鼠标移到图形上时显示的提示框 
+      useHTML: true, 
+      formatter: function() {
+        return this.x +': '+ this.y;  
+      },
+      crosshairs: true
+    },  
+    credits: {
+        enabled: false
+    },
+    plotOptions: {
+        areaspline: {
+          lineWidth:1,
+          /*color:'#ed3c2f',*/
+          fillOpacity: 0.4
+        }
+    },
+    series: [{
+      dashStyle: '',
+      marker: {
+          radius:1,
+          lineWidth: 1,
+          //fillColor: '#FFFFFF',
+          lineColor: null,
+          symbol: 'circle'//"circle", "square", "diamond", "triangle","triangle-down"
+      },
+      data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2,
+            26.5, 23.3, 18.3, 13.9, 9.6]
+    }]
+  }
+  var chart = new Highcharts.Chart(config);
 </script>
 </body>
 </html>
