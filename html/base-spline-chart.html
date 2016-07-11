@@ -42,7 +42,22 @@
       inverted:false//是否将X轴和Y轴进行调换
     },
     colors: ['#7cb5ec', '#434348', '#90ed7d', '#f7a35c', '#8085e9', '#f15c80', '#e4d354', '#8085e8', '#8d4653', '#91e8e1'],//图表序列（Series）的默认颜色数组,默认颜色还可以设置在序列及某种类型图表序列里，例如 column.colors、pie.colors
-    
+    credits: {//图表版权信息。默认情况下，highcharts图表的右下方会放置一个包含链接的版权信息
+        text: 'HCharts.cn',//版权信息显示的文字
+        href:'http://www.highcharts.com',//版权信息链接地址
+        position:{//版权信息显示位置
+          align: 'right',
+          x: -10,
+          verticalAlign: 'bottom',
+          y: -5
+        },
+        style:{//版权文字样式，可设置文字颜色、字体、字号、加粗
+          cursor: 'pointer',
+          color: '#909090',
+          fontSize: '10px'
+        },
+        enabled: false//是否显示版权信息
+    },
     title: {
       text: 'base-spline-chart'
     },
@@ -50,15 +65,18 @@
       enabled:false
     },
     xAxis: {
+      allowDecimals:true,//坐标轴刻度值是否允许为小数
+      //alternateGridColor:'red',//相间的网格列颜色。当设置了此属性，网格中会隔列显示该颜色
       tickInterval: 1,//x轴隔多少个显示一个
       tickLength: 5,//刻度线高度
       tickmarkPlacement:'on',//刻度线方式
       showEmpty: false,
-      categories:['红', '澄', '黄', '绿', '青', '蓝', '紫']//横坐标
+      categories:['红', '澄', '黄', '绿', '青', '蓝', '紫']//横坐标显示的名称
     },
     yAxis: {
-      max:1000,
-      endOnTick:false,//设置这个，y轴最大值才生效
+      //alternateGridColor:'blue',
+      max:1500,
+      endOnTick:false,//设置这个，y轴最大值才生效。结束于标线；是否强制轴线在标线处结束,例如最大是1400，而y轴500显示一个标线，而如果是false，则最大值是1400，否则应为1500
       title:'',
       gridLineColor: '#e5e5e5', 
     },
@@ -97,9 +115,7 @@
       },
       crosshairs: true
     },  
-    credits: {
-        enabled: false
-    },
+    
     plotOptions: {
         areaspline: {
           lineWidth:1,
@@ -116,7 +132,7 @@
           lineColor: null,
           symbol: 'circle'//"circle", "square", "diamond", "triangle","triangle-down"
       },
-      data: [100, 300, 1000, 500, 100, 700, 400]
+      data: [100, 300, 1000, 500, 100, 700, 1400]
     }]
   }
   var chart = new Highcharts.Chart(config);
