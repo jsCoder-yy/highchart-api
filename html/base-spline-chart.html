@@ -6,43 +6,64 @@
     <title>base-spline-chart</title>
     <meta name="description" content="曲线图">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="text/javascript" src="https://github.com/jsCoder-yy/highchart-api/blob/master/js/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="https://github.com/jsCoder-yy/highchart-api/blob/master/js/highcharts/highcharts.js"></script>
+    <script type="text/javascript" src="../js/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/highcharts/highcharts.js"></script>
+    <style type="text/css">
+      body{margin:0;padding:0;}
+      .chart{width: 100%;}
+    </style>
 </head>
 <body>
-<div id="base-spline-chart"></div>
+<div class="chart" id="base-spline-chart"></div>
 <script type="text/javascript">
   var config = {
     chart: {
-        renderTo:'base-spline-chart',
-        type: 'areaspline',
-        height:150,
-        marginLeft:30,
-        marginRight:0
+      renderTo:'base-spline-chart',//图表描绘出后放到页面的某一id的dom元素内
+      type: 'areaspline',//指定绘制区所要绘制的图的类型为曲线图
+      className:'base-spline-chart-class',//给图表容器div加一个class，方便为每个图表单独加CSS样式
+      height:200,
+      marginLeft:45,//图表区域距离左边距离为45px，为了y轴留出来的距离
+      marginRight:0,//图表区域距离右边距离为0px
+      //backgroundColor:'#fff',//外图表区域的背景颜色或渐变
+      backgroundColor: {
+        linearGradient: [0, 0, 500, 500],
+        stops: [
+            [0, 'rgb(255, 255, 255)'],
+            [1, 'rgb(200, 200, 255)']
+        ]
+      },
+      spacing:[10,10,15,10],//图的外边框和绘图区之间的距离
+      //borderWidth: 2,//图表边框宽度。默认宽度为 0
+      //borderRadius:5,//外图表区域边框圆角
+      //borderColor:'red',//外图表区域的边框颜色,borderWidth有值并且不为0时才起作用
+      //plotBackgroundColor:'grey',//绘制图形区域的背景颜色
+      //plotBackgroundImage:'http://www.highcharts.com/demo/gfx/skies.jpg',//需要去掉plotBackgroundColor生效
+      //plotShadow: true,
+      inverted:false//是否将X轴和Y轴进行调换
     },
+    colors: ['#7cb5ec', '#434348', '#90ed7d', '#f7a35c', '#8085e9', '#f15c80', '#e4d354', '#8085e8', '#8d4653', '#91e8e1'],//图表序列（Series）的默认颜色数组,默认颜色还可以设置在序列及某种类型图表序列里，例如 column.colors、pie.colors
+    
     title: {
-      text: ''
+      text: 'base-spline-chart'
     },
     legend: {
       enabled:false
     },
-    //colors:['#93efda'],
     xAxis: {
-      tickInterval: 1,
-      tickLength: 0,//刻度线高度
-      //tickmarkPlacement:'on',
+      tickInterval: 1,//x轴隔多少个显示一个
+      tickLength: 5,//刻度线高度
+      tickmarkPlacement:'on',//刻度线方式
       showEmpty: false,
-      categories:[7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2,
-            26.5, 23.3, 18.3, 13.9, 9.6]
+      categories:['红', '澄', '黄', '绿', '青', '蓝', '紫']//横坐标
     },
     yAxis: {
-      max:100/20,
+      max:1000,
       endOnTick:false,//设置这个，y轴最大值才生效
       title:'',
       gridLineColor: '#e5e5e5', 
     },
     /*yAxis: {
-      max:data.maxValue+data.maxValue/20,
+      max:1000,
       title:'',
       endOnTick:false,//设置这个，y轴最大值才生效
       labels:{
@@ -69,7 +90,7 @@
           }
       }]
     },*/
-    tooltip: {//鼠标移到图形上时显示的提示框 
+    tooltip: {//鼠标点击图形显示的提示框 
       useHTML: true, 
       formatter: function() {
         return this.x +': '+ this.y;  
@@ -95,8 +116,7 @@
           lineColor: null,
           symbol: 'circle'//"circle", "square", "diamond", "triangle","triangle-down"
       },
-      data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2,
-            26.5, 23.3, 18.3, 13.9, 9.6]
+      data: [100, 300, 1000, 500, 100, 700, 400]
     }]
   }
   var chart = new Highcharts.Chart(config);
