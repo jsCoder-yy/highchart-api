@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>base-spline-chart</title>
-    <meta name="description" content="曲线图">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script type="text/javascript" src="../js/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/highcharts/highcharts.js"></script>
-    <style type="text/css">
-      body{margin:0;padding:0;}
-      .chart{width: 100%;}
-    </style>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>base-spline-chart</title>
+  <meta name="description" content="曲线图">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="text/javascript" src="../js/jquery/jquery.min.js"></script>
+  <script type="text/javascript" src="../js/highcharts/highcharts.js"></script>
+  <style type="text/css">
+    body{margin:0;padding:0;}
+    .chart{width: 100%;}
+  </style>
 </head>
 <body>
 <div class="chart" id="base-spline-chart"></div>
@@ -65,20 +65,59 @@
       enabled:false
     },
     xAxis: {
+      id:'',//轴的id。可以在图表渲染后，通过chart.get()获得
       allowDecimals:true,//坐标轴刻度值是否允许为小数
       //alternateGridColor:'red',//相间的网格列颜色。当设置了此属性，网格中会隔列显示该颜色
+      ceiling:1000,//允许最高的自动计算的坐标轴刻度极端值,因为x轴的类别不是数值类型，所以这里不起作用
+      lineColor:'green',//轴线的颜色
+      lineWidth:2,//轴线的宽度
+      
       tickInterval: 1,//x轴隔多少个显示一个
+
       tickLength: 5,//刻度线高度
       tickmarkPlacement:'on',//刻度线方式
       showEmpty: false,
+      labels:{//轴标签的一些设置（显示在刻度上的数值或者分类名称）
+        align:'center',
+        enabled:true,
+        format: '{value}色',
+        /*formatter: function () {
+          return '<a href="' + this.value + '">' +
+            this.value + '</a>';
+        },*/
+        maxStaggerLines:7,//????
+        rotation:0,//轴标签的旋转角度
+        overflow: 'false',
+        staggerLines:1,//水平轴标签显示的行数。当轴标签内容过多时，可以通过该属性控制显示的行数
+        step:1,//轴标签显示间隔数,默认情况下，该间隔数是自动计算的以避免轴标签重叠
+        style:{//设置标签的样式
+          color: 'red',
+          fontWeight: 'bold',
+          whiteSpace: 'nowrap'
+        },
+        x:0,//轴标签相对于轴刻度在水平方向上的偏移量,默认是 0.
+        y:20,//轴标签相对于轴刻度在y轴方向上的偏移量，默认根据轴标签字体大小给予适当的值
+        zIndex:1,//轴标签的在z轴方向上的深度,默认是： 7
+        useHTML:true//是否use HTML渲染标签,设置这个，formatter里面写标签才生效。"{point.y:.2f}"、{point.y:,.0f}
+      },
       categories:['红', '澄', '黄', '绿', '青', '蓝', '紫']//横坐标显示的名称
     },
     yAxis: {
       //alternateGridColor:'blue',
-      max:1500,
-      endOnTick:false,//设置这个，y轴最大值才生效。结束于标线；是否强制轴线在标线处结束,例如最大是1400，而y轴500显示一个标线，而如果是false，则最大值是1400，否则应为1500
-      title:'',
+      max:1500,//轴的最大值
+      //min:100,//轴的最小值
+      //ceiling:1000,//允许最高的自动计算的坐标轴刻度极端值
+      //floor:500,//允许最低的自动计算的坐标轴刻度极端值
+      gridLineWidth:1,
       gridLineColor: '#e5e5e5', 
+      gridLineDashStyle:'ShortDash',//'Solid','ShortDash','ShortDot','ShortDashDot','ShortDashDotDot','Dot','Dash','LongDash','DashDot','LongDashDot','LongDashDotDot'
+      minorGridLineColor: '#C5EEFA',//次级网格线的颜色
+      minorTickInterval: 'auto',//次级网格线的宽度
+      minorGridLineDashStyle:'Solid',//次级网格线的风格，网格线的线条风格样式
+      minorTickInterval:0.1,//次刻度线的间隔。在一个直线轴中，如果设置为"auto"，次刻度间隔计算为刻度线间隔的五分之一。如果设置为null，次刻度刻度线不显示。
+      endOnTick:false,//设置这个，y轴最大值才生效。结束于标线；是否强制轴线在标线处结束,例如最大是1400，而y轴500显示一个标线，而如果是false，则最大值是1400，否则应为1500
+      title:''
+      
     },
     /*yAxis: {
       max:1000,
