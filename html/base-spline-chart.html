@@ -21,7 +21,7 @@
       renderTo:'base-spline-chart',//图表描绘出后放到页面的某一id的dom元素内
       type: 'areaspline',//指定绘制区所要绘制的图的类型为曲线图
       className:'base-spline-chart-class',//给图表容器div加一个class，方便为每个图表单独加CSS样式
-      height:200,
+      height:300,
       marginLeft:45,//图表区域距离左边距离为45px，为了y轴留出来的距离
       marginRight:0,//图表区域距离右边距离为0px
       //backgroundColor:'#fff',//外图表区域的背景颜色或渐变
@@ -59,10 +59,29 @@
         enabled: false//是否显示版权信息
     },
     title: {
-      text: 'base-spline-chart'
+      text: 'base-spline-chart',
+      margin: 50,
+      align: 'center'
     },
     legend: {
-      enabled:false
+      backgroundColor: '#FCFFC5',//图例容器的背景颜色
+      borderColor:'blue',
+      borderRadius:3,
+      borderWidth:1,
+      itemDistance:20,
+      itemMarginTop:10,
+      itemWidth: 80,
+      itemHiddenStyle:{
+        {color:'#666'}
+      },
+      itemHoverStyle:{ 
+        color: 'yellow' 
+      },
+      itemStyle: {
+        color: 'red',
+        fontWeight: 'bold'
+      },
+      enabled:true
     },
     xAxis: {
       id:'',//轴的id。可以在图表渲染后，通过chart.get()获得
@@ -76,7 +95,7 @@
       showLastLabel:true,//是否显示最后一个轴标签
       startOnTick:false,//是否强制轴线在标线处开始????
       tickColor:'#333',//刻度线的颜色
-      tickInterval:2,//坐标轴上的刻度线的单位间隔
+      tickInterval:1,//坐标轴上的刻度线的单位间隔
       tickLength: 5,//刻度线长度
       tickmarkPlacement:'on',//刻度线方式
       labels:{//轴标签的一些设置（显示在刻度上的数值或者分类名称）
@@ -108,12 +127,12 @@
         from:0,
         to: 3
       }],
-      plotLines:[{
+      /*plotLines:[{
         color: '#FF0000',
         width: 2,
         value: 4,
         dashStyle: 'longdashdot'
-      }],
+      }],*/
       categories:['红', '澄', '黄', '绿', '青', '蓝', '紫']//横坐标显示的名称
     },
     yAxis: {
@@ -137,7 +156,7 @@
         text: 'Rainfall',
         rotation: 0,
         y: -10
-      },
+      }/*,
       lineWidth: 1,
       plotLines: [{
           dashStyle:'Dot',
@@ -156,15 +175,30 @@
               color:"#aaaaaa"
             }
           }
-      }]
+      }]*/
       
     },
     tooltip: {//鼠标点击图形显示的提示框 
-      useHTML: true, 
+      borderColor:'red',//提示框边框的颜色
+      borderRadius:5,//数据提示框圆角
+      borderWidth:2,//提示框边框的像素值宽度
+      backgroundColor: '#FCFFC5',//数据提示框背景颜色
+      useHTML: true, //使用HTML代码渲染提示框的内容用以代替SVG。使用HTML允许高级格式化像在提示框中的表格和图像
+      crosshairs:[{//十字准线
+        width: 3,
+        color: 'green'
+      }, {
+        width: 3,
+        color: 'green'
+      }],
+      style: {//为提示框添加CSS样式
+        padding: 10,
+        fontWeight: 'bold'
+      },
+      enabled:true,//启用或禁用提示框
       formatter: function() {
         return this.x +': '+ this.y;  
-      },
-      crosshairs: true
+      }
     },  
     plotOptions: {
         areaspline: {
@@ -182,6 +216,7 @@
           lineColor: null,
           symbol: 'circle'//"circle", "square", "diamond", "triangle","triangle-down"
       },
+      name:'颜色',
       data: [100, 300, 1000, 500, 100, 700, 1400]
     }]
   }
